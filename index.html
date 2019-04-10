@@ -1,0 +1,161 @@
+<html>
+
+	<head>
+		<title>Student System</title>
+	
+	
+		<style>
+			.container{overflow:hidden}
+			.tab{float: left;}
+			.tab-2{margin-left: 50px}
+			.tab-2 input{display: block;margin-bottom: 10px}
+			tr{transition:all .25s ease-in-out}
+			tr:hover{background-color:#EEE;cursor: pointer}
+		</style>
+	
+	
+	
+	
+	</head>
+	<body>
+	
+		<div class="container">
+			<div class="tab tab-1">
+				<table id="table" border ="1">
+					<tr>
+						<th>First Name</th>
+						<th>Last Name</th>
+						<th>Course / s</th>
+						
+					</tr>
+				</table>
+			</div>
+		
+			<div class="tab tab-2">
+				First Name : <input type ="text" name="fname" id="fname">
+				Last Name : <input type ="text" name="lname" id="lname">
+				Course Name : <input type ="text" name="course" id="course">
+				
+				<button onclick="addStudentRow();">Add</button>
+				<button onclick="editStudentTableRow();">Edit</button>
+				<button onclick="removeStudent();">Delete</button>
+			</div>
+		
+		</div>
+	
+	
+		<script>
+		
+			var rIndex,table = document.getElementById("table");
+		
+		
+			//Check the empty input
+			function checkEmptyEntry()
+			{
+					var isEmpty = false,
+					fname = document.getElementById("fname").value,
+					lname = document.getElementById("lname").value,
+					course = document.getElementById("course").value;
+					
+					if(fname === ""){
+						alert("Enter First Name ... cannot be empty !");
+						isEmpty = true;
+					}
+					
+					else if(lname === ""){
+						alert("Enter Last Name ... cannot be empty !");
+						isEmpty = true;
+					}
+					
+					else if(course === ""){
+						alert("Enter Course / s ... cannot be empty !");
+						isEmpty = true;
+					}
+					
+					return isEmpty;
+			}
+		
+			//adding a row...
+		
+			function addStudentRow()
+			{
+			
+			
+				if(!checkEmptyEntry()){
+			
+				//Get the table by id...
+				//Create a new row and cells...
+				//get the value from input text...
+				//set the value into row cells...
+				var newRow = table.insertRow(table.length),
+						cell1 = newRow.insertCell (0),
+						cell2 = newRow.insertCell (1),
+						cell3 = newRow.insertCell (2),
+						
+						fname = document.getElementById("fname").value,
+						lname = document.getElementById("lname").value,
+						course = document.getElementById("course").value;
+						
+						cell1.innerHTML = fname;
+						cell2.innerHTML = lname;
+						cell3.innerHTML = course;
+						
+				//The function is called to set the event to the new row...		
+				selectStudentRow();
+			}	
+			}
+			
+			
+			//Display selected row data into input text...
+			
+			function selectStudentRow()
+			{
+				
+				for(var i = 0; i < table.rows.length;i++)
+				{
+					table.rows[i].onclick = function()
+					{
+						//Get the selected row index
+						rIndex = this.rowIndex;
+						//console.log(rIndex);
+						
+						document.getElementById("fname").value = this.cells[0].innerHTML;
+						document.getElementById("lname").value = this.cells[1].innerHTML;
+						document.getElementById("course").value = this.cells[2].innerHTML;
+					};
+				}			
+			}
+			selectStudentRow();
+			
+			
+			
+			function editStudentTableRow()
+			{
+				var fname = document.getElementById("fname").value,
+					lname = document.getElementById("lname").value,
+					course = document.getElementById("course").value;
+				
+				if(!checkEmptyEntry()){
+				
+				table.rows[rIndex].cells[0].innerHTML = fname;
+				table.rows[rIndex].cells[1].innerHTML = lname;
+				table.rows[rIndex].cells[2].innerHTML = course;
+				}
+			}
+			
+			function removeStudent()
+			{
+				table.deleteRow(rIndex);
+			
+				//Clear Input
+				document.getElementById("fname").value = "";
+				document.getElementById("lname").value = "";
+				document.getElementById("course").value ="";
+			
+			}
+			
+		</script>
+	
+	</body>
+
+</html>
