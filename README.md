@@ -1,2 +1,2 @@
 # StudentManagement-System
-Javascript
+A sample student management system using Javascript.
